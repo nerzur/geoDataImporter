@@ -1,6 +1,6 @@
 package cu.edu.unah.geoDataImporter.controller;
 
-import cu.edu.unah.geoDataImporter.entity.UploadFileResponse;
+import cu.edu.unah.geoDataImporter.request.UploadFileResponse;
 import cu.edu.unah.geoDataImporter.service.FileStorageService;
 import cu.edu.unah.geoDataImporter.utils.PropertiesReader;
 import cu.edu.unah.geoDataImporter.utils.ShellUtils;
@@ -19,11 +19,12 @@ import java.util.*;
  * Esta clase contiene los servicios api-rest para la inserción de ficheros <em>shapefile</em>, <em>kml</em> y <em>obb</em>
  * en una base de datos. Debe tenerse en cuenta que esta base de datos deberá ser de tipo PostgreSQL y se deberá tener
  * a sus ficheros. Debe contarse con el nombre de un usuario con privilegios de adición y una base de datos creada.
- * La base de datos debe contener la extensión <em>pPstgis</em>.<br/>
+ * La base de datos debe contener la extensión <em>Postgis</em>.<br/>
  * La configuración de este servicio se encuentra en el fichero <b>application.properties</b> donde se configurarán los
  * elementos anteriormente mencionados.
  *
  * @author Nerzur
+ * @version 1.0
  */
 @RestController
 @RequestMapping(value = "/uploadFile")
@@ -47,7 +48,7 @@ public class FileController {
 
     /**
      * Instancia de la clase {@link FileStorageService}. Esta clase contiene las funciones necesarias para el almacenamiento
-     * de los fucheros.
+     * de los ficheros.
      */
     @Autowired
     private FileStorageService fileStorageService;
