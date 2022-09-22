@@ -53,6 +53,17 @@ public class FileController {
     @Autowired
     private FileStorageService fileStorageService;
 
+    /**
+     * Esta función constituye el servicio web para procesar los ficheros de tipo <em>KML</em> y <em>OBB</em> Para ello
+     * se indicará el fichero a procesar y en caso de ser necesario la fecha, La fecha tendrá el formato
+     * <em>yyyy-MM-dd HH mm</em>. En caso de no indicarse una fecha se tomará la fecha actual del sistema. El contenido
+     * de este fichero será utilizado para confeccionar una tabla en la base de datos con el nombre del fichero, el cual
+     * estará conformado con el nombre original del fichero seguido de la fecha.
+     * @param file Fichero que será procesado.
+     * @param date Fecha con la que se introducirá el fichero en la base de datos.
+     * @return Devuelve una instancia de la clase {@link UploadFileResponse}, la cual contiene el resultado de la
+     * operación realizada.
+     */
     @PostMapping("/commonFile")
     public ResponseEntity<UploadFileResponse> processCommonFile(@RequestParam("file") MultipartFile file, @RequestParam(name = "date", required = false) String date) {
         Date now = Calendar.getInstance().getTime();
@@ -112,6 +123,18 @@ public class FileController {
                 .date(dateToFileName).build());
     }
 
+    /**
+     * Esta función constituye el servicio web para procesar los ficheros de tipo <em>SHP</em>. Para ello
+     * se indicarán un conjunto de ficheros que componen las partes del fichero <em>SHP</em> a procesar y en caso de
+     * ser necesario la fecha. La fecha tendrá el formato <em>yyyy-MM-dd HH mm</em>. En caso de no indicarse
+     * se tomará la fecha actual del sistema. El contenido de estos ficheros será utilizado para confeccionar una
+     * tabla en la base de datos con el nombre del fichero con extensión <em>SHP</em>, el cual estará conformado
+     * por el nombre original del fichero seguido de la fecha.
+     * @param files Ficheros que serán procesado.
+     * @param date Fecha con la que se introducirá el fichero en la base de datos.
+     * @return Devuelve una instancia de la clase {@link UploadFileResponse}, la cual contiene el resultado de la
+     * operación realizada.
+     */
     @PostMapping("/shapeFile")
     public ResponseEntity<UploadFileResponse> processShapeFile(@RequestParam("file") MultipartFile[] files, @RequestParam(name = "date", required = false) String date) {
         Date now = Calendar.getInstance().getTime();
