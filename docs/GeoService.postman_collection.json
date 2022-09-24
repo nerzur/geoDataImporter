@@ -1,0 +1,132 @@
+{
+	"info": {
+		"_postman_id": "94d14205-0d0b-490e-8a67-efee69af1101",
+		"name": "GeoService",
+		"description": "StartFragment\n\nGeoDataImporter es un conjunto de servicios api-rest desarrollados utilizando la librería Spring-Boot cuyo objetivo es la importación de información contenida en ficheros espaciales. Contiene varios servicios capaces de procesar ficheros de tipo _SHP_, _OBB_ y _KML_. Esta información procesada se introducirá de forma automática en una base de datos _PostgreSQL_, la cual contará previamente con una base de datos y esta a su vez con la extensión _Postgis_.\n\nEste sistema a su vez también permite incorporar los datos del clima en una localización definida por el usuario. Posteriormente esta información puede ser visualizada utilizando algún sistema GIS de preferencia (por ejemplo QGIS).\n\nEndFragment\n\nEsta colección contiene la información precisa de cada uno de los servicios api-rest que compoenen esta aplicación.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14357433"
+	},
+	"item": [
+		{
+			"name": "Add Common File",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"description": "Fichero que será procesado. Este fichero debe ser siempre de extención KML u OBB.",
+							"type": "file",
+							"src": "/D:/Nueva Carpeta/Guayabal/GuayabalMap.kml"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8090/uploadFile/commonFile?date=2000-12-05 12:24",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"uploadFile",
+						"commonFile"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2000-12-05 12:24",
+							"description": "Fecha que acompañará al nombre del fichero. La fecha debe contener un formato de tipo yyyy-MM-DD HH-MM. Esta fecha no es requerida. En caso de no ser indicada se tomará la fecha del sistema."
+						}
+					]
+				},
+				"description": "Este servicio procesa el contenido de un fichero KML u OBB y lo adiciona como una tabla en la base de datos.\n\nPara ello requiere que le sea indicado en el Body del request un fichero de tipo KML u OBB únicamente. Por otro lado podrá ser indicado como parámetro de la consulta una fecha cuyo formato será _yyyy-MM-dd HH mm_.\n\nEsta fecha se incluirá al final del fichero y formará parte del nombre de la tabla de la base de datos. Dicha fecha no será obligatoria, pues en caso de no indicarse se tomará la fecha actual del sistema."
+			},
+			"response": []
+		},
+		{
+			"name": "Add Shape File",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/D:/Nueva Carpeta/Guayabal/siembra2/Layer #1.dbf"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/D:/Nueva Carpeta/Guayabal/siembra2/Layer #1.prj"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/D:/Nueva Carpeta/Guayabal/siembra2/Layer #1.shp"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/D:/Nueva Carpeta/Guayabal/siembra2/Layer #1.shx"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8090/uploadFile/shapeFile/",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"uploadFile",
+						"shapeFile",
+						""
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2000-12-05 12 24",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Este servicio procesa el contenido de un fichero SHP y lo adiciona como una tabla en la base de datos.\n\nPara ello requiere que le sea indicado en el Body del request 4 ficheros de tipo SHP (ficheros que conforma la estructura de un archivo ShapeFile). Por otro lado podrá ser indicado como parámetro de la consulta una fecha cuyo formato será _yyyy-MM-dd HH mm_.\n\nEsta fecha se incluirá al final del fichero y formará parte del nombre de la tabla de la base de datos. Dicha fecha no será obligatoria, pues en caso de no indicarse se tomará la fecha actual del sistema."
+			},
+			"response": []
+		},
+		{
+			"name": "Add Weather Data",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"longitude\" : -82.1653382,\r\n    \"latitude\" : 22.9968894,\r\n    \"date\" : \"2022-09-08 09 40\" ,\r\n    \"data\" : \"TEST DATA FOR THIS REQUEST\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8090/weather/insert/",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"weather",
+						"insert",
+						""
+					]
+				},
+				"description": "Este servicio permite adicionar información del clima de un lugar en un momento especificado.\n\nPara ello requiere que le sea indicado en el Body del request con estructura JSON los siguientes elementos:\n\n\\* **longitude:** longitud del punto del lugar a referenciar (en caso de no ser especificada se tomará por defecto -82.1653382).  \n\\* **latitude:** latitud de lugar a referenciar (en caso de no ser inficada se tomará por defecto 22.9968894).  \n\\* **date:** Fecha correspondiente a los datos de clima a introducir (en caso de no ser especificada se tomará la hora del sistema).  \n\\* **data (Requerido):** JSON que contiene los datos del clima."
+			},
+			"response": []
+		}
+	]
+}

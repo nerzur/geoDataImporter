@@ -39,8 +39,7 @@ public class ShellUtils {
         Process process = Runtime.getRuntime()
                 .exec("cmd /C " + command, null, new File(fileUploadDir));
         process.waitFor();
-//        System.out.println(obtainProcessConsoleResults(process));
-//        System.out.println(process.exitValue());
+        System.out.println(obtainProcessConsoleResults(process));
         return process.exitValue();
     }
 

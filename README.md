@@ -29,11 +29,15 @@ mvn spring-boot:run
 
 ## Probar los servicios
 
-Para probar los servicios se ha creado una colección de <em>Postman</em> que cuenta con una descripción detallada de los servicios a utilizar, así como ejemplos del usos de los mismos. Esta colección podrá encontrar en el siguiente fichero 
-
-<strong> FICHERO </strong>
+Para probar los servicios se ha creado una colección de <em>Postman</em> que cuenta con una descripción detallada de los servicios a utilizar, así como ejemplos del usos de los mismos. Esta colección podrá encontrarla en el siguiente [fichero](docs/GeoService.postman_collection.json)
 
 ## Ejemplos de visualización en QGIS
+
+Tras la realización de la conexión con la base de datos de <em>PostgreSQL</em> en <em>QGIS</em> se pueden visualizar algunos ejemplos de las capas que son importadas con <em>GeoDataImporter</em>. A continuación se muestran algunos ejemplos
+
+<img src="docs/Imagen1.jpg" alt="Imagen de la distribución de terrenos productivos UDP Guayabal" style="zoom:50%;" />
+
+<img src="docs/Imagen2.jpg" alt="Imagen de la distribución de siembras UDP Guayabal" style="zoom:50%;" />
 
 
 

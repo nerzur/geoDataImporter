@@ -170,7 +170,7 @@ public class FileController {
         ShellUtils shellUtils = new ShellUtils(propertiesReader.getFileUploadDir(), propertiesReader.getDbUser(), propertiesReader.getDbName());
         String shapeFileName = getShapeFileName(fileNames);
         resultCode = shellUtils.addShapeFile(shapeFileName);
-        System.out.println(fileStorageService.cleanDumpFiles(fileNames));
+       fileStorageService.cleanDumpFiles(fileNames);
 
         if (resultCode != 0) {
             errorResponse.setMessage("An error has been occurred processing de file");
@@ -182,6 +182,7 @@ public class FileController {
                 .fileType("shp")
                 .uploadDate(simpleDateFormatCurrentDate.format(now))
                 .message("ok")
+                .status(true)
                 .size(fileStorageService.getFileSize())
                 .date(dateToFileName).build());
     }
