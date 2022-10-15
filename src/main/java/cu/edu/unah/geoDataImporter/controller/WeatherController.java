@@ -79,7 +79,7 @@ public class WeatherController {
 
         Weather weatherRequest = Weather.builder()
                 .id(0L)
-                .data(request.getData())
+                .data(request.getData().toString())
                 .date(date)
                 .location(GeometryUtil.parseLocation(longitude, latitude))
                 .build();

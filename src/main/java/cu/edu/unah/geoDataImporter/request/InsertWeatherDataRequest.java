@@ -1,5 +1,6 @@
 package cu.edu.unah.geoDataImporter.request;
 
+import cu.edu.unah.geoDataImporter.entity.WeatherData;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,5 +35,5 @@ public class InsertWeatherDataRequest {
     /**
      * Información meteorológica
      */
-    String data;
+    WeatherData data;
 }
