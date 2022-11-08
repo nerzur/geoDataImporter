@@ -27,6 +27,8 @@ public class ShellUtils {
      */
     public String dbName;
 
+    static OsCheck.OSType ostype = null;
+
     /**
      * Esta función ejecuta un comando indicado en el shell del sistema operativo y espera el resultado de la ejecución.
      * @param command Comando a ser ejecutado en el sistema operativo.
@@ -37,7 +39,8 @@ public class ShellUtils {
      */
     public int executeProcess(String command) throws IOException, InterruptedException {
         Process process = Runtime.getRuntime()
-                .exec("cmd /C " + command, null, new File(fileUploadDir));
+                .exec(getShellCommand() + command, null, new File(fileUploadDir));
+        System.out.println(command);
         process.waitFor();
         System.out.println(obtainProcessConsoleResults(process));
         return process.exitValue();
@@ -99,5 +102,11 @@ public class ShellUtils {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    private String getShellCommand(){
+        if(ostype == null)
+            ostype = OsCheck.getOperatingSystemType();
+        return OsCheck.OSType.Windows == ostype ? "cmd / " : "shell ";
     }
 }
