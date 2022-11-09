@@ -30,7 +30,6 @@ public class GeometryUtil {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        System.out.println("###geometry :"+geometry);
         return geometry;
     }
 
