@@ -10,7 +10,7 @@
     </parent>
     <groupId>cu.edu.unah</groupId>
     <artifactId>geoDataImporter</artifactId>
-    <version>1.0-Release</version>
+    <version>1.2-Release</version>
     <name>geoDataImporter</name>
     <description>A geodata importer for postgreSQL</description>
     <properties>
