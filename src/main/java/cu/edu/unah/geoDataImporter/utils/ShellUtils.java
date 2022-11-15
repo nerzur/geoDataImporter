@@ -1,6 +1,8 @@
 package cu.edu.unah.geoDataImporter.utils;
 
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 
@@ -27,6 +29,10 @@ public class ShellUtils {
      */
     public String dbName;
 
+    static OsCheck.OSType ostype = null;
+
+    private static final Logger logger = LoggerFactory.getLogger(ShellUtils.class);
+
     /**
      * Esta función ejecuta un comando indicado en el shell del sistema operativo y espera el resultado de la ejecución.
      * @param command Comando a ser ejecutado en el sistema operativo.
@@ -36,10 +42,13 @@ public class ShellUtils {
      * @throws InterruptedException Es lanzada si la operación es interrumpida de forma abrupta.
      */
     public int executeProcess(String command) throws IOException, InterruptedException {
-        Process process = Runtime.getRuntime()
-                .exec("cmd /C " + command, null, new File(fileUploadDir));
+        String[] shellCommand = getShellCommand().split(" ");
+        ProcessBuilder pb =
+                new ProcessBuilder(shellCommand[0], shellCommand[1], command);
+        Process process = pb.start();
+        logger.info(getShellCommand()+command);
         process.waitFor();
-        System.out.println(obtainProcessConsoleResults(process));
+        logger.info(obtainProcessConsoleResults(process));
         return process.exitValue();
     }
 
@@ -99,5 +108,11 @@ public class ShellUtils {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    private String getShellCommand(){
+        if(ostype == null)
+            ostype = OsCheck.getOperatingSystemType();
+        return OsCheck.OSType.Windows == ostype ? "cmd /C " : "sh -c ";
     }
 }

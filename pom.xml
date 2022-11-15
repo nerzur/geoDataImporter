@@ -10,7 +10,7 @@
     </parent>
     <groupId>cu.edu.unah</groupId>
     <artifactId>geoDataImporter</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.2-Release</version>
     <name>geoDataImporter</name>
     <description>A geodata importer for postgreSQL</description>
     <properties>
@@ -19,6 +19,7 @@
         <jackson.jts.version>2.4</jackson.jts.version>
         <jts.version>1.14.0</jts.version>
         <hibernate.version>5.3.20.Final</hibernate.version>
+        <skipTests>true</skipTests>
     </properties>
     <dependencies>
         <dependency>
@@ -82,10 +83,6 @@
             <artifactId>hibernate-spatial</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
-
-
-
-
     </dependencies>
 
     <dependencyManagement>
@@ -122,6 +119,30 @@
                     <to>
                         <image>ghcr.io/nouhouari/spring-boot-postgis</image>
                     </to>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- Build an executable JAR -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>cu.edu.unah.geoDataImporter.GeoDataImporterApplication</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.12.4</version>
+                <configuration>
+                    <skipTests>${skipTests}</skipTests>
+                    <argLine>-Dfile.encoding=UTF-8</argLine>
+                    <runOrder>alphabetical</runOrder>
                 </configuration>
             </plugin>
         </plugins>

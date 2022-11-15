@@ -78,7 +78,7 @@ public class FileStorageService {
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
             File oldFile = targetLocation.toFile();
             String newName = normalizeFileName(FilenameUtils.getBaseName(fileName)) + " " + date + "." + FilenameUtils.getExtension(fileName);
-            String newPath = this.fileStorageLocation.toFile().getAbsolutePath()+"\\"+newName;
+            String newPath = this.fileStorageLocation.toFile().getAbsolutePath()+File.separator+newName;
             oldFile.renameTo(new File(newPath));
             fileSize+=new File(newPath).length();
             return newName;
@@ -110,7 +110,7 @@ public class FileStorageService {
     public boolean cleanDumpFiles(String... fileNames){
         int filesDeleted = 0;
         for (String fileName : fileNames) {
-            new File (this.fileStorageLocation.toFile().getAbsolutePath()+"\\"+fileName).delete();
+            new File (this.fileStorageLocation.toFile().getAbsolutePath()+File.separator+fileName).delete();
             filesDeleted++;
         }
         return filesDeleted==fileNames.length;

@@ -107,7 +107,6 @@ public class FileController {
         int resultCode = -1;
         ShellUtils shellUtils = new ShellUtils(propertiesReader.getFileUploadDir(), propertiesReader.getDbUser(), propertiesReader.getDbName());
         resultCode = shellUtils.addCommonFile(fileName);
-        System.out.println(fileStorageService.cleanDumpFiles(fileName));
 
         if (resultCode != 0) {
             errorResponse.setMessage("An error has been occurred processing de file");
@@ -165,7 +164,6 @@ public class FileController {
 
         fileStorageService.setFileSize(0);
         String[] fileNames = fileStorageService.storeMultipleFiles(files, dateToFileName);
-        System.out.println();
         int resultCode = -1;
         ShellUtils shellUtils = new ShellUtils(propertiesReader.getFileUploadDir(), propertiesReader.getDbUser(), propertiesReader.getDbName());
         String shapeFileName = getShapeFileName(fileNames);
